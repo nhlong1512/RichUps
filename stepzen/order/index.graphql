@@ -20,8 +20,14 @@ type OrderList {
 }
 
 type Query {
+  getOrderById(id: ID): Order
+  @rest(
+    endpoint: "https://richups-51381-default-rtdb.asia-southeast1.firebasedatabase.app/orders/$id.json"
+  )
+
   getOrders: [OrderList]
     @rest(
       endpoint: "https://richups-51381-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json"
+      transforms: [{pathpattern:[], editor: "objectToArray" }]
     )
 }

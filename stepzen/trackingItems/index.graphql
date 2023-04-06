@@ -9,9 +9,19 @@ type TrackingItems {
   items: [ItemsEntry]
 }
 
+type TrackingItemsList {
+  name: ID
+  value: TrackingItems
+}
+
 type Query {
   getTrackingItemById(id: ID!): TrackingItems
     @rest(
       endpoint: "https://richups-51381-default-rtdb.asia-southeast1.firebasedatabase.app/trackingItems/$id.json"
+    )
+  getTrackingItems: [TrackingItemsList]
+    @rest(
+      endpoint: "https://richups-51381-default-rtdb.asia-southeast1.firebasedatabase.app/trackingItems.json"
+      transforms: [{ pathpattern: [], editor: "objectToArray" }]
     )
 }
