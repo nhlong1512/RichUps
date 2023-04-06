@@ -1,0 +1,27 @@
+type Order {
+  Address: String
+  City: String
+  Lat: Float
+  Lng: Float
+  carrier: String
+  createdAt: Date
+  shippingCost: Int
+  trackingId: String
+  trackingItems: TrackingItems
+    @materializer(
+      query: "getTrackingItemById"
+      arguments: [{ name: "id", field: "trackingId" }]
+    )
+}
+
+type OrderList {
+  name: ID
+  value: Order
+}
+
+type Query {
+  getOrders: [OrderList]
+    @rest(
+      endpoint: "https://richups-51381-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json"
+    )
+}

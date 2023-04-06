@@ -1,0 +1,17 @@
+type ItemsEntry {
+  item_id: Int
+  name: String
+  price: Float
+  quantity: Int
+}
+type TrackingItems {
+  customer_id: String
+  items: [ItemsEntry]
+}
+
+type Query {
+  getTrackingItemById(id: ID!): TrackingItems
+    @rest(
+      endpoint: "https://richups-51381-default-rtdb.asia-southeast1.firebasedatabase.app/trackingItems/$id.json"
+    )
+}
