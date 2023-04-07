@@ -26,12 +26,6 @@ const useCustomerOrders = (userId: string) => {
       setOrders(customerOrders);
   }, [data, userId]);
   return { loading, error, orders };
-  
-  return (
-    <View>
-      <Text>useCustomerOrders</Text>
-    </View>
-  );
 };
 
 export default useCustomerOrders;

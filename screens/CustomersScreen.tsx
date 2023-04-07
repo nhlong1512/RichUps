@@ -8,9 +8,16 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { TextInput } from "react-native-paper";
+import { useQuery } from "@apollo/client";
+import { GET_CUSTOMERS } from "../graphql/queries";
+import { CustomerList, CustomerResponse } from "../typings";
+import CustomerCard from "../components/CustomerCard";
 
 const CustomersScreen = () => {
   const [searchText, setSearchText] = useState<string>("");
+
+  const { loading, error, data } = useQuery(GET_CUSTOMERS);
+
   return (
     <ScrollView className="bg-[#59c1cc]">
       <Image
@@ -27,6 +34,15 @@ const CustomersScreen = () => {
         activeOutlineColor="#59c1cc"
         placeholderTextColor="#969393"
       />
+      {data?.getCustomers
+        ?.filter(
+          (customer: CustomerList) =>
+            customer.value.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            customer.value.email.toLowerCase().includes(searchText.toLowerCase())
+        )
+        .map(({ name: ID, value: { email, name } }: CustomerResponse) => (
+          <CustomerCard key={ID} email={email} name={name} userId={ID} />
+        ))}
     </ScrollView>
   );
 };
