@@ -19,7 +19,7 @@ const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: "#59C1CC",
+        tabBarActiveTintColor: `${route.name === "Customers" ? "#59C1CC": "#EB6A7C"}`,
         tabBarInactiveTintColor: "gray",
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === "Customers") {
@@ -35,7 +35,7 @@ const TabNavigator = () => {
               <Entypo
                 name="box"
                 size={24}
-                color={focused ? "#59C1CC" : "gray"}
+                color={focused ? "#EB6A7C" : "gray"}
               />
             );
           }
