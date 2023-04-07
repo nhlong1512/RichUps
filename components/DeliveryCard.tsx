@@ -7,11 +7,18 @@ import MapView, { Marker } from "react-native-maps";
 
 type Props = {
   order: Order;
+  isOrder: boolean;
 };
 
-const DeliveryCard: React.FC<Props> = ({ order }) => {
+const DeliveryCard: React.FC<Props> = ({ order, isOrder }) => {
   return (
-    <Card className="pt-5 mt-[16px] rounded-[5px] shadow-[0_3px_8px_3px_rgba(0,0,0,0.24)] bg-[#59c1cc] mx-[10px]">
+    <Card
+      className={
+        isOrder
+          ? `pt-5 mt-[16px] rounded-[5px] shadow-[0_3px_8px_3px_rgba(0,0,0,0.24)] mx-[10px] bg-[#EB6A7C]`
+          : `pt-5 mt-[16px] rounded-[5px] shadow-[0_3px_8px_3px_rgba(0,0,0,0.24)] mx-[10px] bg-[#59c1cc]`
+      }
+    >
       <View>
         <View className="flex-col justify-center items-center">
           <Entypo name="box" size={40} color="white" />
@@ -52,26 +59,26 @@ const DeliveryCard: React.FC<Props> = ({ order }) => {
           ))}
         </View>
       </View>
-      <MapView 
+      <MapView
         initialRegion={{
-            latitude: order.Lat,
-            longitude: order.Lng,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
+          latitude: order.Lat,
+          longitude: order.Lng,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
         }}
-        className="w-full h-[200px]"
+        className={!isOrder?`w-full h-[200px]`:`w-full h-[400px]`}
       >
         {order.Lat && order.Lng && (
-            <Marker coordinate={{
-                latitude: order.Lat,
-                longitude: order.Lng,
+          <Marker
+            coordinate={{
+              latitude: order.Lat,
+              longitude: order.Lng,
             }}
-                title="Delivery Location"
-                description={order.Address}
-                identifier="destination"
-            />
-
-        )} 
+            title="Delivery Location"
+            description={order.Address}
+            identifier="destination"
+          />
+        )}
       </MapView>
     </Card>
   );

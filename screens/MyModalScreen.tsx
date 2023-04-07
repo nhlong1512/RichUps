@@ -22,7 +22,7 @@ const MyModalScreen = ({ route }: { route: any }) => {
   const { name, userId } = route.params;
 
   const { loading, error, orders } = useCustomerOrders(userId);
-
+  const isOrder = false;
   return (
     <ScrollView>
       <View>
@@ -52,7 +52,9 @@ const MyModalScreen = ({ route }: { route: any }) => {
           className="pb-[200px]"
           data={orders}
           keyExtractor={(order) => order.trackingId}
-          renderItem={({ item: order }) => <DeliveryCard order={order} />}
+          renderItem={({ item: order }) => (
+            <DeliveryCard order={order} isOrder={isOrder} />
+          )}
         />
       </View>
     </ScrollView>

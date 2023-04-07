@@ -9,9 +9,7 @@ const OrdersScreen = ({ navigation }: { navigation: any }) => {
   const { loading, error, orders } = useOrders();
   const [ascending, setAscending] = useState<boolean>(false);
   return (
-    <ScrollView
-    className="bg-[#EB6A7C]"
-    >
+    <ScrollView className="bg-[#EB6A7C]">
       <Image
         source={require("../assets/images/orders_banner.jpg")}
         className="w-full h-64"
@@ -27,15 +25,21 @@ const OrdersScreen = ({ navigation }: { navigation: any }) => {
           </Text>
         </Button>
 
-        {orders?.sort((a,b) => {
-          if(ascending){
-            return new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1
-          }else{
-            return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-          }
-        }).map(order=> (
-          <OrderCard key={order.trackingId} item ={order}/>
-        ))}
+        {orders
+          ?.sort((a, b) => {
+            if (ascending) {
+              return new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1;
+            } else {
+              return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;
+            }
+          })
+          .map((order) => (
+            <OrderCard
+              key={order.trackingId}
+              item={order}
+              navigation={navigation}
+            />
+          ))}
       </View>
     </ScrollView>
   );

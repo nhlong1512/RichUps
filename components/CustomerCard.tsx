@@ -18,7 +18,6 @@ const CustomerCard:React.FC<Props> = ({ email, name, userId, navigation}) => {
       name: name,
       userId: userId,
     })
-    //Redux pass name and userId
   }
   
   return (
