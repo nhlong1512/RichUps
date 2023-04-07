@@ -1,19 +1,28 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import useCustomerOrders from "../hooks/useCustomerOrders";
-import { Button, Card, Divider } from "react-native-paper";
+import { Card, Divider } from "react-native-paper";
 import { Entypo } from "@expo/vector-icons";
 
 interface Props {
   email: string;
   name: string;
   userId: string;
+  navigation: any;
 }
 
-const CustomerCard: React.FC<Props> = ({ email, name, userId }) => {
+const CustomerCard:React.FC<Props> = ({ email, name, userId, navigation}) => {
   const { loading, error, orders } = useCustomerOrders(userId);
+  const navigateToModal = () => {
+    navigation.navigate('MyModal', {
+      name: name,
+      userId: userId,
+    })
+    //Redux pass name and userId
+  }
+  
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={navigateToModal}>
       <Card className="p-5 mt-[16px] mx-[10px]">
         <View>
           <View className="flex-row justify-between mb-[16px]">

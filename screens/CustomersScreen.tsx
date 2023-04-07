@@ -12,9 +12,11 @@ import { useQuery } from "@apollo/client";
 import { GET_CUSTOMERS } from "../graphql/queries";
 import { CustomerList, CustomerResponse } from "../typings";
 import CustomerCard from "../components/CustomerCard";
+import { useNavigation } from "@react-navigation/native";
 
 const CustomersScreen = () => {
   const [searchText, setSearchText] = useState<string>("");
+  const navigation = useNavigation();
 
   const { loading, error, data } = useQuery(GET_CUSTOMERS);
 
@@ -41,7 +43,7 @@ const CustomersScreen = () => {
             customer.value.email.toLowerCase().includes(searchText.toLowerCase())
         )
         .map(({ name: ID, value: { email, name } }: CustomerResponse) => (
-          <CustomerCard key={ID} email={email} name={name} userId={ID} />
+          <CustomerCard key={ID} email={email} name={name} userId={ID} navigation={navigation} />
         ))}
     </ScrollView>
   );
