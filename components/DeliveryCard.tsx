@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Order } from "../typings";
 import { Card, Divider } from "react-native-paper";
 import { Entypo } from "@expo/vector-icons";
+import MapView, { Marker } from "react-native-maps";
 
 type Props = {
   order: Order;
@@ -10,7 +11,7 @@ type Props = {
 
 const DeliveryCard: React.FC<Props> = ({ order }) => {
   return (
-    <Card className="pt-5 mt-[16px] rounded-[5px] shadow-[0_3px_8px_rgba(0,0,0,0.24)] bg-[#59c1cc] mx-[10px]">
+    <Card className="pt-5 mt-[16px] rounded-[5px] shadow-[0_3px_8px_3px_rgba(0,0,0,0.24)] bg-[#59c1cc] mx-[10px]">
       <View>
         <View className="flex-col justify-center items-center">
           <Entypo name="box" size={40} color="white" />
@@ -51,6 +52,27 @@ const DeliveryCard: React.FC<Props> = ({ order }) => {
           ))}
         </View>
       </View>
+      <MapView 
+        initialRegion={{
+            latitude: order.Lat,
+            longitude: order.Lng,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,
+        }}
+        className="w-full h-[200px]"
+      >
+        {order.Lat && order.Lng && (
+            <Marker coordinate={{
+                latitude: order.Lat,
+                longitude: order.Lng,
+            }}
+                title="Delivery Location"
+                description={order.Address}
+                identifier="destination"
+            />
+
+        )} 
+      </MapView>
     </Card>
   );
 };
